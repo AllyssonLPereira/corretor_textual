@@ -13,9 +13,10 @@ fs.readFile(link, "utf-8", (err, text) => {
 
 function breakParagraphs(text) {
     const paragraphs = text.toLowerCase().split("\n");
-    const count = paragraphs.map((paragraph) => {
+    const count = paragraphs.flatMap((paragraph) => {
+        if (!paragraph) return [];
         return checkDuplicateWords(paragraph);
-    });
+    })
 
     console.log(count);
 }
@@ -29,7 +30,7 @@ function checkDuplicateWords(text) {
     const result = {};
 
     listWords.forEach(word => {
-        if (word.length >= 3) { 
+        if (word.length >= 3) {
             const wordClean = cleanWords(word);
             result[wordClean] = (result[wordClean] || 0) + 1
         }
