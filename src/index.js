@@ -4,14 +4,23 @@ const filePath = process.argv;
 const link = filePath[2];
 
 fs.readFile(link, "utf-8", (err, text) => {
-    CheckDuplicateWords(text);
+    breakParagraphs(text)
 });
 
 // criar um array com as palavras
 // contar as ocorrências
 // montar um objeto com o resultado
 
-function CheckDuplicateWords(text) {
+function breakParagraphs(text) {
+    const paragraphs = text.toLowerCase().split("\n");
+    const count = paragraphs.map((paragraph) => {
+        return checkDuplicateWords(paragraph);
+    });
+
+    console.log(count);
+}
+
+function checkDuplicateWords(text) {
     const listWords = text.split(" ");
     const result = {};
 
@@ -19,5 +28,5 @@ function CheckDuplicateWords(text) {
         result[word] = (result[word] || 0) + 1
     });
 
-    console.log(result)
+    return result;
 };
