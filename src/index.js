@@ -20,12 +20,20 @@ function breakParagraphs(text) {
     console.log(count);
 }
 
+function cleanWords(word) {
+    return word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+}
+
 function checkDuplicateWords(text) {
     const listWords = text.split(" ");
     const result = {};
 
     listWords.forEach(word => {
-        result[word] = (result[word] || 0) + 1
+        if (word.length >= 3) { 
+            const wordClean = cleanWords(word);
+            result[wordClean] = (result[wordClean] || 0) + 1
+        }
+
     });
 
     return result;
