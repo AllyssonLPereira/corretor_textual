@@ -1,18 +1,22 @@
 const fs = require('fs');
+const treatErrors = require("./errors/functionsErrors");
 
 const filePath = process.argv;
 const link = filePath[2];
 
 fs.readFile(link, "utf-8", (err, text) => {
-    breakParagraphs(text)
+    try {
+        if (err) throw err;
+        accountWords(text);
+
+    } catch(err) {
+        treatErrors(err)
+
+    }
 });
 
-// criar um array com as palavras
-// contar as ocorrências
-// montar um objeto com o resultado
-
-function breakParagraphs(text) {
-    const paragraphs = text.toLowerCase().split("\n");
+function accountWords(text) {
+    const paragraphs = extractParagraphs(text);
     const count = paragraphs.flatMap((paragraph) => {
         if (!paragraph) return [];
         return checkDuplicateWords(paragraph);
@@ -21,8 +25,12 @@ function breakParagraphs(text) {
     console.log(count);
 }
 
+function extractParagraphs(text) {
+    return text.toLowerCase().split("\n");
+}
+
 function cleanWords(word) {
-    return word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+    return word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
 }
 
 function checkDuplicateWords(text) {
