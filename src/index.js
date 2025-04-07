@@ -5,7 +5,7 @@ export function accountWords(text) {
         return checkDuplicateWords(paragraph);
     })
 
-    console.log(count);
+    return count;
 }
 
 function extractParagraphs(text) {
@@ -25,7 +25,6 @@ function checkDuplicateWords(text) {
             const wordClean = cleanWords(word);
             result[wordClean] = (result[wordClean] || 0) + 1
         }
-
     });
 
     return result;
