@@ -1,21 +1,4 @@
-const fs = require('fs');
-const treatErrors = require("./errors/functionsErrors");
-
-const filePath = process.argv;
-const link = filePath[2];
-
-fs.readFile(link, "utf-8", (err, text) => {
-    try {
-        if (err) throw err;
-        accountWords(text);
-
-    } catch(err) {
-        treatErrors(err)
-
-    }
-});
-
-function accountWords(text) {
+export function accountWords(text) {
     const paragraphs = extractParagraphs(text);
     const count = paragraphs.flatMap((paragraph) => {
         if (!paragraph) return [];
