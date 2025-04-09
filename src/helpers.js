@@ -6,7 +6,10 @@ function mountFileOutput(listWords) {
     let finalText = ""
     listWords.forEach((paragraph, index) => {
         const duplicates = filtersOccurrence(paragraph).join(", ");
-        finalText += `Palavras duplicadas no parágrafo ${index + 1}: ${duplicates} \n`
+
+        if (duplicates) {
+            finalText += `Palavras duplicadas no parágrafo ${index + 1}: ${duplicates} \n`
+        }
     });
 
     return finalText;
