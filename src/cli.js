@@ -1,5 +1,6 @@
 import fs from "fs";
 import { accountWords } from "./index.js";
+import { mountFileOutput } from "./helpers.js";
 import treatErrors from "./errors/functionsErrors.js";
 
 const pathOrigin = process.argv;
@@ -20,7 +21,7 @@ fs.readFile(link, "utf-8", (err, text) => {
 
 async function writeFile(listWords, path) {
     const file = `${path}/resultado.txt`;
-    const text = JSON.stringify(listWords);
+    const text = mountFileOutput(listWords);
 
     try {
         await fs.promises.writeFile(file, text);
