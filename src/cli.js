@@ -11,7 +11,7 @@ const program = new Command();
 program
     .version("0.0.1")
     .option("-t, --text <string>", "caminho do texto a ser processado")
-    .option("-d, --destination", "caminho da pasta onde salvar o arquivo resultante do processamento")
+    .option("-d, --destination <string>", "caminho da pasta onde salvar o arquivo resultante do processamento")
     .action((options) => {
         const { text, destination } = options;
 
@@ -26,9 +26,9 @@ program
 
         try {
             processFile(textPath, destinationPath);
-            console.log(chalk.green("texto processado com sucesso"))
+            console.log(chalk.green("texto processado com sucesso"));
         } catch (err) {
-            console.error(chalk.red("ocorreu um erro no processamento"), err)
+            console.error(chalk.red("ocorreu um erro no processamento"), err);
         }
     })
 
@@ -53,7 +53,7 @@ async function writeFile(listWords, destination) {
 
     try {
         await fs.promises.writeFile(file, text);
-        console.log("Arquivo criado");
+        console.log(chalk.green("Arquivo criado"));
 
     } catch (err) {
         throw err;
